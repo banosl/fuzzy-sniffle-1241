@@ -52,6 +52,13 @@ RSpec.describe "Dishes show", type: :feature do
       expect(page).to have_content("Total calories: #{@dish_1.total_calories}")
     end
 
-    it 'see chefs name'
+    it 'see chefs name' do
+      visit "/dishes/#{@dish_3.id}"
+      expect(page).to have_content("Chef: #{@dish_3.chef.name}")
+
+      visit "/dishes/#{@dish_2.id}"
+      expect(page).to have_content("Chef: #{@dish_1.chef.name}")
+      expect(page).to_not have_content("Chef: #{@dish_3.chef.name}")
+    end
   end
 end
