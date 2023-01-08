@@ -1,1 +1,10 @@
 <h1><%= @chef.name %></h1>
+
+<section id="dishes">
+  <p>Dishes: </p>
+    <ul>
+      <% @chef.dishes.each do |dish| %>
+        <li><%= dish.name %></li>
+      <% end %>
+    </ul>
+</section>

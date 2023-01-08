@@ -33,7 +33,15 @@ RSpec.describe "Chefs show", type: :feature do
       expect(page).to_not have_content("#{@chef_2.name}")
     end
 
-    it 'see list of all dishes that belong to the chef'
+    it 'see list of all dishes that belong to the chef' do
+      visit "/chefs/#{@chef_1.id}"
+
+      within("#dishes") do
+        expect(page).to have_content("#{@dish_1.name}")
+        expect(page).to have_content("#{@dish_2.name}")
+        expect(page).to_not have_content("#{@dish_3.name}")
+      end
+    end
 
     it 'see a form to a dd an exisiting dish to the chef'
 
