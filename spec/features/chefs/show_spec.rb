@@ -74,9 +74,17 @@ RSpec.describe "Chefs show", type: :feature do
       expect(page).to have_link("List of #{@chef_1.name}'s ingredients", :href => "/chefs/#{@chef_1.id}/ingredients")
     end
 
-    it 'when ingredients link is clicked, user is taken to chefs ingredients index page'
+    it 'when ingredients link is clicked, user is taken to chefs ingredients index page' do
+      visit "/chefs/#{@chef_1.id}"
+
+      click_link("List of #{@chef_1.name}'s ingredients")
+
+      expect(current_path).to eq("/chefs/#{@chef_1.id}/ingredients")
+    end
 
     it 'in chefs ingredients index page one can see a unique list of all ingredients the chef uses'
-
+      # expect(page).to have_content("#{@ingredient_3.name}")
+      # expect(page).to have_content("#{@ingredient_2.name}")
+      # expect(page).to have_content("#{@ingredient_6.name}")
   end
 end
