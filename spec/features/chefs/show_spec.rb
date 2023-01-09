@@ -43,10 +43,40 @@ RSpec.describe "Chefs show", type: :feature do
       end
     end
 
-    it 'see a form to a dd an exisiting dish to the chef'
+    it 'see a form to a dd an exisiting dish to the chef' do
+      visit "/chefs/#{@chef_2.id}"
 
-    it 'when form is filled with ID of dish that exists in the database, click submit,
-    user is redirected to the chefs show page with the dish now listed'
+      expect(page).to have_field(:add_dish)
+    end
+
+    xit 'when form is filled with ID of dish that exists in the database, click submit,
+    user is redirected to the chefs show page with the dish now listed' do
+      visit "/chefs/#{@chef_2.id}"
+
+      within ("#dishes") do
+        expect(page).to have_content("#{@dish_3.name}")
+        expect(page).to_not have_content("#{@dish_2.name}")
+      end
+
+      fill_in :add_dish, with: "#{@dish_2.id}"
+      click_button "Add Dish"
+
+      expect(current_path).to eq("/chefs/#{@chef_2.id}")
+      within ("#dishes") do
+        expect(page).to have_content("#{@dish_3.name}")
+        expect(page).to have_content("#{@dish_2.name}")
+      end
+    end
+
+    it 'see link to view a list of all ingredients that this chef uses in all dishes' do
+      visit "/chefs/#{@chef_1.id}"
+
+      expect(page).to have_link("List of #{@chef_1.name}'s ingredients", :href => "/chefs/#{@chef_1.id}/ingredients")
+    end
+
+    it 'when ingredients link is clicked, user is taken to chefs ingredients index page'
+
+    it 'in chefs ingredients index page one can see a unique list of all ingredients the chef uses'
 
   end
 end

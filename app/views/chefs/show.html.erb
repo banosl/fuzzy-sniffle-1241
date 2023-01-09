@@ -8,3 +8,15 @@
       <% end %>
     </ul>
 </section>
+
+<section id="Add a dish">
+  <p>Add a dish for <%= @chef.name %></p>
+
+  <%= form_with url: "/chefs/#{@chef.id}", method: :post, local: true do |form|%>
+  <%= form.label "Dish ID:" %>
+  <%= form.text_field :add_dish %>
+  <%= form.submit "Add Dish" %>
+  <% end %>
+</section>
+
+<%= link_to "List of #{@chef.name}'s ingredients", "/chefs/#{@chef.id}/ingredients" %>
